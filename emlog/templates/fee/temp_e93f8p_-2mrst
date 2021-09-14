@@ -1,0 +1,111 @@
+<?php
+if(!defined('EMLOG_ROOT')) {exit('error!');}
+date_default_timezone_set('Asia/Shanghai');
+function _vip($uid = '0') {
+	if($uid==''){$uid = UID;}
+	$DB = Database::getInstance();
+	$row = $DB->once_fetch_array("select * from ".DB_PREFIX."user where uid='$uid'");
+	
+	return '-1';
+}
+//widget：blogger
+function widget_blogger($title){
+	global $Tconfig;
+$db = Database::getInstance();
+$sta_cache = array();
+$data = $db->once_fetch_array("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "user WHERE role = 'admin'");
+$blog_admin = $data['total'];
+$data = $db->once_fetch_array("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "blog WHERE  top = 'y' or sortop = 'y' AND type = 'blog'");
+$log_top = $data['total'];
+$data = $db->once_fetch_array('SELECT COUNT(*) AS total FROM ' . DB_PREFIX . 'blog WHERE type = \'blog\'');
+$log_total = $data['total'];
+$data = $db->once_fetch_array('SELECT COUNT(*) AS total FROM ' . DB_PREFIX . 'comment');
+$log_com = $data['total'];
+$data = $db->once_fetch_array('SELECT COUNT(*) AS total FROM ' . DB_PREFIX . 'link');
+$log_link = $data['total'];
+$data = $db->once_fetch_array('SELECT COUNT(*) AS total FROM ' . DB_PREFIX . 'sort');
+$log_sort = $data['total'];
+$data = $db->once_fetch_array('SELECT COUNT(*) AS total FROM ' . DB_PREFIX . 'tag');
+$log_tag = $data['total'];
+$data = $db->once_fetch_array("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "twitter");
+$wei_yu = $data['total'];
+$data = $db->once_fetch_array("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "blog WHERE type = 'page'");
+$log_page = $data['total'];
+$data = $db->once_fetch_array('SELECT COUNT(*) AS total FROM ' . DB_PREFIX . 'user');
+$count_user = $data['total'];
+$sql = 'SELECT * FROM ' . DB_PREFIX . 'blog WHERE type=\'blog\' ORDER BY date DESC LIMIT 0,1';
+$res = $db->query($sql);
+$row = $db->fetch_array($res);
+$date = date('n月j日', $row['date']);
+?>
+<div class="widget <?php echo $Tconfig["wow"];?>">
+	<div class="widget_about">
+		<section class="about">
+		<h3><?php echo $title; ?></h3>
+		<span><?php echo $Tconfig["side_mm"];?></span>
+		<div class="excerpt">
+			<p>
+				<?php echo $Tconfig["side_txt"];?>
+			</p>
+		</div>
+		<ul class="layout_ul">
+			<li class="layout_li">
+			<span>文章</span>
+			<b><?php echo $log_total;?></b>
+			</li>
+			<li class="layout_li">
+			<span>评论</span>
+			<b><?php echo $log_com;?></b>
+			</li>
+			<li class="layout_li">
+			<span>标签</span>
+			<b><?php echo $log_tag;?></b>
+			</li>
+			<li class="layout_li">
+			<span>微语</span>
+			<b><?php echo $wei_yu;?></b>
+			</li>
+		</ul>
+		</section>
+	</div>
+</div>
+<?php }?>
+<?php
+//标签云
+function page_tags(){
+	global $CACHE;
+	$tag_cache = $CACHE->readCache('tags');?>
+	<?php foreach($tag_cache as $value): ?>
+	<a title="<?php echo $value['usenum']; ?> 篇文章" href="<?php echo Url::tag($value['tagurl']); ?>" target="_blank"><?php echo $value['tagname']; ?><em>(<?php echo $value['usenum']; ?>)</em></a>
+	<?php endforeach; ?>
+<?php }?>
+<?php
+//widget：标签
+function widget_tag($title){
+    global $CACHE;
+	global $Tconfig;
+    $tag_cache = $CACHE->readCache('tags');?>
+	<div class="widget widget_ui_tags <?php echo $Tconfig["wow"];?>">
+		<h3><?php echo $title; ?></h3>
+		<ul>
+		<?php shuffle ($tag_cache);
+		$tag_cache = array_slice($tag_cache,0,30);foreach($tag_cache as $value): ?>
+			<a title="<?php echo $value['usenum']; ?> 篇文章" href="<?php echo Url::tag($value['tagurl']); ?>"><?php echo $value['tagname']; ?> (<?php echo $value['usenum']; ?>)</a>
+		<?php endforeach; ?>
+		</ul>
+	</div>
+<?php }?>
+<?php
+//widget：最新微语
+function widget_twitter($title){
+	global $CACHE; 
+  	global $Tconfig;
+	$newtws_cache = $CACHE->readCache('newtw');
+	$istwitter = Option::get('istwitter');
+	?>
+	<div class="widget widget_ui_comments <?php echo $Tconfig["wow"];?>">
+	<h3><i class="fa fa-twitch fa-fw" aria-hidden="true"></i>  最新微语</h3>
+	<ul>
+      <?php foreach($newtws_cache as $value): ?>
+		<li style="margin-left: 0px;"><a href="/t">
+		<img class="avatar avatar-50 photo avatar-default" height="50" width="50" src="<?php global $CACHE;$user_cache = $CACHE->readCache('user');if($user_cache[
