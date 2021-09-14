@@ -10248,6 +10248,7 @@ article .entry-thumb {
 	margin-top:20px;
 	display:flex;
 	padding:5px 15px;
+	border-bottom: 1px solid #f7f7f7;
 	/*box-shadow:0 0 20px hsla(0,0%,63%,.1);*/
 	border-radius:5px 5px 0 0
 }
