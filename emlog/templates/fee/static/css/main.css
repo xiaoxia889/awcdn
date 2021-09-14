@@ -2278,7 +2278,7 @@ header .sb-search-input {
 	border-top:0;
 	padding:20px;
 	background:#fff;
-	box-shadow:0 0px 20px rgba(160,160,160,0.1);
+	/*box-shadow:0 0px 20px rgba(160,160,160,0.1);*/
 }
 .article-content:hover {
 	border-top:0;
