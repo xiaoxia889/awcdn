@@ -10247,9 +10247,9 @@ article .entry-thumb {
 	background:#fff;
 	margin-top:20px;
 	display:flex;
-	padding:10px 15px;
-	box-shadow:0 0 20px hsla(0,0%,63%,.1);
-	border-radius:10px 10px 0 0
+	padding:5px 15px;
+	/*box-shadow:0 0 20px hsla(0,0%,63%,.1);*/
+	border-radius:5px 5px 0 0
 }
 .smhb .share-haibao {
 	cursor:url(../img/fcous.cur),auto;
