@@ -1723,11 +1723,9 @@ header .sb-search-input {
 	padding:0;
 }
 .relates-thumb {
-	background-color:#fff;
-	padding:20px;
-	border-top:0;
-	box-shadow:0 0px 20px rgba(160,160,160,0.1);
-	/*border-radius:0 0 5px 5px;*/
+	background-color: #fff;
+    padding: 5px 15px;
+    margin-top: 20px;
 }
 .relates-thumb h3 {
 	font-size:20px;
