@@ -967,7 +967,7 @@ $("#qqhao").blur(function() {
 	$("#qqhao").attr("disabled", false);
 	$("#error1").html('<img src="' + pjaxtheme + 'static/img/loading.gif">');
 	$.ajax({
-		url: api_url + "api/nic.php?qq=" + $("#qqhao").val(),
+		url: pjaxtheme + "inc/qq.php?qq=" + $("#qqhao").val(),
 		type: "GET",
 		dataType: "jsonp",
 		success: function(a) {
@@ -1015,6 +1015,8 @@ $(function () {
 		}
 	});
 });
+
+
 
 //图片图床上传
 		$(document).ready(function() {
@@ -1210,3 +1212,61 @@ $(function() {
             $(this).addClass("active");
         }
     });
+
+/*
+$('.m-menubar li.menu-item-has-children').on('click', function(){
+   $(this).find('.sub-menu').slideToggle(300)
+	
+})*/
+
+$(".m-menubar li.menu-item-has-children").on("click", function() {
+			     $(this).toggleClass("active").siblings().removeClass("active")
+			});
+
+$('.m-user').on('click', function(){
+    jsui.bd.addClass('m-wel-on')
+	$('.m-mask').show()
+})
+$('.m-mask').on('click', function(){
+    $(this).hide()
+    jsui.bd.removeClass('m-wel-on')
+})
+$('.m-wel-content ul a').on('click', function(){
+    $('.m-mask').hide()
+    jsui.bd.removeClass('m-wel-on')
+})
+
+$('.m-icon-nav').on('click', function(){
+    jsui.bd.addClass('m-nav-show')
+
+    $('.m-mask').show()
+
+    jsui.bd.removeClass('search-on')
+    $('.search-show .fa').removeClass('fa-remove') 
+})
+
+$('.m-mask').on('click', function(){
+    $(this).hide()
+    jsui.bd.removeClass('m-nav-show')
+})
+
+
+
+
+video_ok()
+$(window).resizeend(function(event) {
+    video_ok()
+});
+
+function video_ok(){
+    var cw = $('.article-content').width()
+    $('.article-content embed, .article-content video, .article-content iframe').each(function(){
+        var w = $(this).attr('width')||0,
+            h = $(this).attr('height')||0
+        if( cw && w && h ){
+            $(this).css('width', cw<w?cw:w)
+            $(this).css('height', $(this).width()/(w/h))
+        }
+    })
+}
+$('img[src*="checkcode.php"]').attr('title', '单击刷新验证码').click(function(){this.src = this.src.replace(/\?.*$/, "") +'?'+ new Date().getTime();});
