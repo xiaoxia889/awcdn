@@ -2560,6 +2560,7 @@ header .sb-search-input {
 	color:#f8f8d4;
 	border:0
 }
+/*
 .article-content blockquote {
 	margin:15px 0px;
 	padding:0px 20px;
@@ -2572,6 +2573,7 @@ header .sb-search-input {
 	padding:0;
 	margin-bottom:10px
 }
+*/
 .p_indent .article-content p {
 	text-indent:30px
 }
