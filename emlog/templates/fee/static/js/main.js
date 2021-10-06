@@ -1134,7 +1134,7 @@ function shareToQQ(url, title, cover, desc, summary) {
 //公告栏滚动条
 function clock(){
      $("#callboard ul").animate({marginTop:"-24px"},500,function(){
-          $(this).css({marginTop:"0px"}).find("li:first").appendTo(this);                                                      
+          $(this).css({marginTop:"-1px"}).find("li:first").appendTo(this);                                                      
      })
 }
 $(function(){
